@@ -6,10 +6,14 @@ import { GridPokemon } from './components/GridPokemon'
 export const PokeApi = () => {
   return (
    <>
-    <h2>PokeApi</h2>
-    <hr/>
+   <div className="container mt-4">
 
      <GridPokemon />
+
+   </div>
+    
+    
+
    </>
   );
 }
