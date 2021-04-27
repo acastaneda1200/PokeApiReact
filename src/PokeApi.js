@@ -1,20 +1,16 @@
+import { Container } from '@material-ui/core';
 import React from 'react'
 import { GridPokemon } from './components/GridPokemon'
 
 
-
 export const PokeApi = () => {
   return (
-   <>
-   <div className="container mt-4">
+    <>
+      <Container fixed>
 
-     <GridPokemon />
-
-   </div>
-    
-    
-
-   </>
+        <GridPokemon />
+      </Container>
+    </>
   );
 }
 
