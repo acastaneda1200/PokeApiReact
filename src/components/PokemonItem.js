@@ -47,12 +47,12 @@ export const PokemonItem = (dataDetalle) => {
 
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
+        <CardMedia 
           className={classes.media}
           image={imagen}
           title={dataDetalle.name}
         />
-        <CardContent>
+        <CardContent >
           <StylesProvider injectFirst>
             <div className="cards_type">
               {

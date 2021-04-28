@@ -5,7 +5,7 @@ export const useFetchPokemon = () => {
   const [pokemon, setPokemon] = useState([{
     dataSimple: [],
     dataDetalle: [],
-
+  
   }])
 
   useEffect(() => {
