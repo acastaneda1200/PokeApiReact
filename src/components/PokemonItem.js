@@ -1,6 +1,7 @@
 
-import { Card, CardActionArea, CardContent, CardMedia, makeStyles, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react'
+import { Card, CardActionArea, CardContent, CardMedia, Chip, createMuiTheme, makeStyles, StylesProvider, Typography } from '@material-ui/core';
+import './chipStyle.css'
+import React from 'react'
 //import { fetchPokemon } from '../helpers/getPokemon'
 
 const useStyles = makeStyles({
@@ -13,20 +14,38 @@ const useStyles = makeStyles({
     marginRight: "auto",
     width: "55%",
     height: 180
-    
+
   },
+  card_stats: {
+    width: '78%',
+  }
 });
 
 export const PokemonItem = (dataDetalle) => {
+
+
   const classes = useStyles();
 
+  const imagen = dataDetalle.sprites.other["official-artwork"].front_default
 
 
-   const imagen = dataDetalle.sprites?.other["official-artwork"].front_default
+  /* let habilidad = dataDetalle.abilities[0].ability.name;
+  let habilidadHidden = dataDetalle.abilities[1].ability.name; */
+  let HP = dataDetalle.stats[0].base_stat;
+  let attack = dataDetalle.stats[1].base_stat;
+  let defense = dataDetalle.stats[2].base_stat;
+  let special_attack = dataDetalle.stats[3].base_stat;
+  let special_defense = dataDetalle.stats[4].base_stat;
+  let speed = dataDetalle.stats[5].base_stat;
+
+
+
+
+
 
   return (
-     
-     <Card className={classes.root}>
+
+    <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -34,17 +53,59 @@ export const PokemonItem = (dataDetalle) => {
           title={dataDetalle.name}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-          {dataDetalle.name}
+          <StylesProvider injectFirst>
+            <div className="cards_type">
+              {
+                dataDetalle.types.map(({ type }) => (
+
+                  <Chip align="center" className={`t_${type.name} text-white`} label={type.name} />
+
+                ))
+              }
+            </div>
+          </StylesProvider>
+
+          <Typography gutterBottom align="center" variant="h5" component="h2">
+            {dataDetalle.name}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
+          <div >
+            <table className={classes.card_stats}>
+              <tbody><tr>
+                <th>HP</th>
+                <td>{HP}</td>
+              </tr>
+                <tr>
+                  <th>Attack</th>
+                  <td>{attack}</td>
+                </tr>
+
+                <tr>
+                  <th>Defense</th>
+                  <td>{defense}</td>
+                </tr>
+
+                <tr>
+                  <th>Special Attack</th>
+                  <td>{special_attack}</td>
+                </tr>
+                <tr>
+                  <th>Special Defense</th>
+                  <td>{special_defense}</td>
+                </tr>
+                <tr>
+                  <th>Speed</th>
+                  <td>{speed}</td>
+                </tr>
+              </tbody></table>
+          </div>
+
         </CardContent>
       </CardActionArea>
-    
+
     </Card>
-   
+
   )
+
+
+
 }

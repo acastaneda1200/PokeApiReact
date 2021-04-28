@@ -1,0 +1,67 @@
+.t_fire {
+    background-color: #c71800;
+  }
+  
+  .t_fairy {
+    background: #ff8a95;
+  }
+  
+  .t_ice {
+    background: #6fb8eb;
+  }
+  
+  .t_grass {
+    background-color: #9bcc50;
+  }
+  
+  .t_dark {
+    background: #5c0249;
+  }
+  
+  .t_psychic {
+    background: #ff2cc3;
+  }
+  
+  .t_electric {
+    background-color: #eed535;
+  }
+  
+  .t_water {
+    background-color: #1CB5E0;
+  }
+  
+  .t_normal {
+    background-color: #a4acaf;
+  }
+  
+  .t_poison {
+    background-color: #b010b6;
+  }
+  
+  .t_bug {
+    background-color: #729f3f;
+  }
+  .text-white{
+    color: #ffffff;
+  }
+
+  .cards_type {
+    position: relative;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    
+    right: -0.1em;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: "Open Sans Condensed", "Open Sans", helvetica, sans-serif;
+    letter-spacing: 0.1em;
+    padding: 0.25em;
+    line-height: 1;
+    border-radius: 2px;
+ 
+    margin-right: 6px;
+    left: 10rem;
+  }
