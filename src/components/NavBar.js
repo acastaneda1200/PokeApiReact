@@ -9,12 +9,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { GridPokemon } from './GridPokemon';
 import { useFetchPokemon } from '../hooks/useFetchPokemon';
-import { Container } from '@material-ui/core';
+import { CircularProgress, Container } from '@material-ui/core';
 //import SearchPokemon from './SearchPokemon';
 
 
 
 const useStyles = makeStyles((theme) => ({
+  spinner: {
+    alignContent: "center"
+  },
   grow: {
     flexGrow: 1,
   },
@@ -81,13 +84,13 @@ const useStyles = makeStyles((theme) => ({
 export const NavBar = () => {
   const classes = useStyles();
 
-  
+
   //const [newData, setNewData] = useState([]);
   let [pokemosCard, ready, SearchPokemon, inputValue] = useFetchPokemon();
 
 
-  
- 
+
+
 
 
 
@@ -131,8 +134,20 @@ export const NavBar = () => {
         </Toolbar>
       </AppBar>
       <Container fixed>
-
+       {
+          !ready &&
+          <CircularProgress size={100}  
+          left={-20}
+          top={10}
+          
+          style={{marginLeft: '50%'}}
+          color="secondary" />
+         
+          
+          
+        }
         <GridPokemon pokemosCard={pokemosCard} ready={ready} />
+     
 
       </Container>
 

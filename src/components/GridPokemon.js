@@ -1,4 +1,5 @@
 import { Grid, makeStyles } from '@material-ui/core';
+import Pagination from '@material-ui/lab/Pagination';
 import React from 'react'
 //import { useFetchPokemon } from '../hooks/useFetchPokemon';
 //import NavBar from './NavBar';
@@ -21,6 +22,7 @@ export const GridPokemon = ({pokemosCard, ready}) => {
 
             <>
                 <div className={classes.root}>
+                <Pagination count={10} color="primary" />
                     <Grid container spacing={5} >
 
                         {
