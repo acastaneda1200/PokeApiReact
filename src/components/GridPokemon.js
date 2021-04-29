@@ -22,7 +22,8 @@ export const GridPokemon = ({pokemosCard, ready}) => {
 
             <>
                 <div className={classes.root}>
-                <Pagination count={10} color="primary" />
+                   
+                {/* <Pagination count={10} color="primary" /> */}
                     <Grid container spacing={5} >
 
                         {
