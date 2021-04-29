@@ -1,5 +1,5 @@
 
-import { Card, CardActionArea, CardContent, CardMedia, Chip, createMuiTheme, makeStyles, StylesProvider, Typography } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, CardMedia, Chip,  makeStyles, StylesProvider, Typography } from '@material-ui/core';
 import './chipStyle.css'
 import React from 'react'
 //import { fetchPokemon } from '../helpers/getPokemon'

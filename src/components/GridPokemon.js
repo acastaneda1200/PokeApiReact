@@ -1,7 +1,7 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import React from 'react'
-import { useFetchPokemon } from '../hooks/useFetchPokemon';
-import NavBar from './NavBar';
+//import { useFetchPokemon } from '../hooks/useFetchPokemon';
+//import NavBar from './NavBar';
 import { PokemonItem } from './PokemonItem'
 
 const useStyles = makeStyles((theme) => ({
@@ -13,12 +13,9 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }));
-export const GridPokemon = () => {
+export const GridPokemon = ({pokemosCard, ready}) => {
     const classes = useStyles();
-
-    const test = NavBar.SearchPokemon;
-    console.log(test); 
-    const [pokemosCard, ready] = useFetchPokemon();
+   
     if (ready) {
         return (
 

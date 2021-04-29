@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { GridPokemon } from './GridPokemon';
+import { useFetchPokemon } from '../hooks/useFetchPokemon';
+import { Container } from '@material-ui/core';
 //import SearchPokemon from './SearchPokemon';
 
 
@@ -78,67 +81,63 @@ const useStyles = makeStyles((theme) => ({
 export const NavBar = () => {
   const classes = useStyles();
 
-  const [inputValue, setInputValue] = useState('')
-
-  const SearchPokemon = (e) => {
-    setInputValue(e.target.value);
-
-     if (inputValue.trim().length > 2) {
-      
-      const searchApi = async () => {
-        const url = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=25&offset=0`);
-        const {results} = await url.json();
-        
-        const filterPokemon = results.filter(({name}) => name.toLowerCase().includes(inputValue.toLowerCase()))
-        
-        return filterPokemon;
-      }
-      searchApi()
-    }
-  }
+  
+  //const [newData, setNewData] = useState([]);
+  let [pokemosCard, ready, SearchPokemon, inputValue] = useFetchPokemon();
 
 
-    return (
-      <div className={classes.grow}>
-        <AppBar color={"secondary"} style={{ marginBottom: "15px" }} position="static">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography className={classes.title} variant="h6" noWrap>
-              Poke-Api
+  
+ 
+
+
+
+
+  return (
+    <div className={classes.grow}>
+      <AppBar color={"secondary"} style={{ marginBottom: "15px" }} position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="open drawer"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography className={classes.title} variant="h6" noWrap>
+            Poke-Api
           </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Buscar Pokemon"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={SearchPokemon}
-                value={inputValue}
-
-              />
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
             </div>
-            <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
+            <InputBase
+              placeholder="Buscar Pokemon"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={SearchPokemon}
+              value={inputValue}
 
-            </div>
+            />
+          </div>
+          <div className={classes.grow} />
+          <div className={classes.sectionDesktop}>
 
-          </Toolbar>
-        </AppBar>
+          </div>
 
-      </div>
-    );
-  }
+        </Toolbar>
+      </AppBar>
+      <Container fixed>
 
-  export default NavBar;
+        <GridPokemon pokemosCard={pokemosCard} ready={ready} />
+
+      </Container>
+
+    </div>
+  );
+}
+
+export default NavBar;
