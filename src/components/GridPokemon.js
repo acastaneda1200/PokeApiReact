@@ -1,4 +1,4 @@
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid, makeStyles, Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import React from 'react'
 //import { useFetchPokemon } from '../hooks/useFetchPokemon';
@@ -11,42 +11,56 @@ const useStyles = makeStyles((theme) => ({
     },
     gridCard: {
         padding: "90px"
-    }
+    },
+    pagination: {
+        "& > *": {
+          marginTop: theme.spacing(2),
+          justifyContent:"center",
+          display:'flex',
+          marginBottom: '1rem'
+        }
+      }
 
 }));
-export const GridPokemon = ({pokemosCard, ready}) => {
+export const GridPokemon = ({ pokemosCard, ready }) => {
     const classes = useStyles();
-   
     if (ready) {
         return (
-
             <>
-                <div className={classes.root}>
-                   
-                {/* <Pagination count={10} color="primary" /> */}
-                    <Grid container spacing={5} >
+                {
+                    (pokemosCard.length !== 0) ?
+                        <div className={classes.root}>
 
-                        {
-                            pokemosCard.map(({ dataSimple, dataDetalle }) => (
-                                <Grid key={dataSimple.name + dataDetalle.id} item xs={12} sm={6} md={4}>
-                                    <PokemonItem
-                                        key={dataSimple.name + dataDetalle.id}
-                                        {...dataDetalle}
+                            <Pagination size='large' className={classes.pagination} count={10} color="primary" />
+                            <Grid container spacing={5} >
 
-                                    />
-                                </Grid>
-                            ))
-                        }
+                                {
+
+                                    pokemosCard.map(({ dataSimple, dataDetalle }) => (
+                                        <Grid key={dataSimple.name + dataDetalle.id} item xs={12} sm={6} md={4}>
+                                            <PokemonItem
+                                                key={dataSimple.name + dataDetalle.id}
+                                                {...dataDetalle}
+
+                                            />
+                                        </Grid>
+
+                                    ))
+
+                                }
 
 
-                    </Grid>
-                </div>
-
+                            </Grid>
+                        </div>
+                        :
+                        <Typography align='center' variant="h5" component="h4">
+                        No se encontraron resultados
+                        </Typography>
+                }
             </>
 
-
         )
-    }else{
+    } else {
         return null;
     }
 

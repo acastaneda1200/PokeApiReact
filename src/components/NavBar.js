@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { GridPokemon } from './GridPokemon';
 import { useFetchPokemon } from '../hooks/useFetchPokemon';
-import { CircularProgress, Container } from '@material-ui/core';
+import { CircularProgress, Container, Link } from '@material-ui/core';
 //import SearchPokemon from './SearchPokemon';
 
 
@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+    
   },
   search: {
     position: 'relative',
@@ -108,7 +109,12 @@ export const NavBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Poke-Api
+          <Link
+                    color='inherit'
+                    to="/"
+                >
+                    PokeApi
+            </Link>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
