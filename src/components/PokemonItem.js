@@ -17,17 +17,18 @@ const useStyles = makeStyles({
 
   },
   card_stats: {
-    width: '78%',
+    display:'grid',
+    placeItems: 'center',
+
   }
 });
 
-export const PokemonItem = (dataDetalle) => {
+export const PokemonItem = (dataDetalle, history ) => {
 
 
   const classes = useStyles();
 
   const imagen = dataDetalle.sprites.other["official-artwork"].front_default
-
 
   /* let habilidad = dataDetalle.abilities[0].ability.name;
   let habilidadHidden = dataDetalle.abilities[1].ability.name; */
@@ -37,7 +38,8 @@ export const PokemonItem = (dataDetalle) => {
   let special_attack = dataDetalle.stats[3].base_stat;
   let special_defense = dataDetalle.stats[4].base_stat;
   let speed = dataDetalle.stats[5].base_stat;
-
+ 
+  
 
 
 
@@ -45,9 +47,9 @@ export const PokemonItem = (dataDetalle) => {
 
   return (
 
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia 
+    <Card key={dataDetalle.name}  className={classes.root}>
+      <CardActionArea >
+        <CardMedia key={dataDetalle.name}
           className={classes.media}
           image={imagen}
           title={dataDetalle.name}

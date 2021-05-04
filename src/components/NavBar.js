@@ -82,10 +82,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const NavBar = () => {
+export const NavBar = ({history}) => {
   const classes = useStyles();
 
-
+  
   //const [newData, setNewData] = useState([]);
   let [pokemosCard, ready, SearchPokemon, inputValue] = useFetchPokemon();
 
@@ -152,7 +152,7 @@ export const NavBar = () => {
           
           
         }
-        <GridPokemon pokemosCard={pokemosCard} ready={ready} />
+        <GridPokemon history={history} pokemosCard={pokemosCard} ready={ready} />
      
 
       </Container>

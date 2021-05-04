@@ -45,7 +45,7 @@ export const useFetchPokemon = () => {
             const { url } = pok
             const urlFetch = await fetch(url);
             const dataPorPokemon = await urlFetch.json();
-  
+            console.log(dataPorPokemon);
             //return pok
             return {
               dataSimple: pok,

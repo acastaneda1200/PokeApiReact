@@ -22,8 +22,11 @@ const useStyles = makeStyles((theme) => ({
       }
 
 }));
-export const GridPokemon = ({ pokemosCard, ready }) => {
+export const GridPokemon = ({ history, pokemosCard, ready }) => {
+
     const classes = useStyles();
+
+    
     if (ready) {
         return (
             <>
@@ -31,17 +34,17 @@ export const GridPokemon = ({ pokemosCard, ready }) => {
                     (pokemosCard.length !== 0) ?
                         <div className={classes.root}>
 
-                            <Pagination size='large' className={classes.pagination} count={10} color="primary" />
+                            {/* <Pagination size='large' className={classes.pagination} count={10} color="primary" /> */}
                             <Grid container spacing={5} >
 
                                 {
 
                                     pokemosCard.map(({ dataSimple, dataDetalle }) => (
                                         <Grid key={dataSimple.name + dataDetalle.id} item xs={12} sm={6} md={4}>
-                                            <PokemonItem
-                                                key={dataSimple.name + dataDetalle.id}
+                                            <PokemonItem 
+                                                key={dataSimple.name + dataDetalle.id + dataDetalle.id}
                                                 {...dataDetalle}
-
+                                               
                                             />
                                         </Grid>
 
