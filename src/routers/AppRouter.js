@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     BrowserRouter as Router,
     Switch,
@@ -6,25 +6,30 @@ import {
     Redirect,
 
 } from "react-router-dom";
-import { PokemonSearch } from '../components/PokemonSearch';
-import { PokeApi } from '../PokeApi';
-import { NavBar } from '../components/NavBar'
+import { PokemonSearch } from '../components/search/PokemonSearch';
+import { NavBar } from '../components/Navbar/NavBar'
+import { SearchContext } from '../components/search/SearchContext';
+import { GridPokemon } from '../components/pokemon/GridPokemon';
 
 
 
 export const AppRouter = () => {
+
+   
+    const [searchPokemon, setSearchPokemon] = useState([])
+    
     return (
         <Router>
-          
-                {/* <NavBar /> */}
+           <SearchContext.Provider value={{searchPokemon, setSearchPokemon}}>
+                 <NavBar />
 
                 <Switch>
                    <Route exact path="/pokemon/:name" component={PokemonSearch}></Route>
-                   <Route path="/" component={NavBar}></Route>
+                   <Route path="/" component={GridPokemon}></Route>
 
                    <Redirect to="/"/>
                 </Switch>
-           
+                </SearchContext.Provider>
         </Router>
     )
 }

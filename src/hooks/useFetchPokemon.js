@@ -1,96 +1,54 @@
 import { useEffect, useState } from 'react'
+import { getPokemon, searchApi } from '../helpers/getPokemon'
 
-export const useFetchPokemon = () => {
-  const [inputValue, setInputValue] = useState('');
-  const [readyForRender, setReadyForRender] = useState(false);
-  const [pokemon, setPokemon] = useState([{
-    dataSimple: [],
-    dataDetalle: [],
-  
-  }])
+export const useFetchPokemon = (inputValue) => {
 
-  const SearchPokemon = (e) => {
-    setInputValue(e.target.value);
-  }
+    const [state, setState] = useState({
+        data: [],
+        loading: true,
 
+    })
 
- 
+    useEffect(() => {
 
-  useEffect(() => {
+        getPokemon(inputValue)
+            .then(pokemon => {
 
-    getPokemon();
+                setState({
+                    data: pokemon,
+                    loading: false
+                })
+            })
+    }, [])
 
-  }, [])
+    return state;
+}
 
-  useEffect(() => {
-    if (inputValue.trim().length < 2) {
-      getPokemon();
-    }
-  }, [inputValue])
+export const useFetchSearchPokemon = (inputValue) => {
 
-  useEffect(() => {
-    if (inputValue.trim().length >= 2) {
-
-      const searchApi = async () => {
-        const url = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=150&offset=0`);
-        const { results } = await url.json();
-  
-        const searchPokemon = results.filter(({ name }) => {
-          return name.toLowerCase().includes(inputValue.toLowerCase())
-        })
-  
-        const dataPokemon = await Promise.all(
-          searchPokemon.map(async (pok) => {
-  
-            const { url } = pok
-            const urlFetch = await fetch(url);
-            const dataPorPokemon = await urlFetch.json();
-            console.log(dataPorPokemon);
-            //return pok
-            return {
-              dataSimple: pok,
-              dataDetalle: dataPorPokemon,
-            }
-  
-          })
-  
-        )
-     
-        setPokemon(dataPokemon)
-      }
-      searchApi()
-    }
-   
-  }, [inputValue])
-
-  const getPokemon = async () => {
-    const urlFetch = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20`);
-    const { results } = await urlFetch.json();
-    const dataPokemon = await Promise.all(
-      results.map(async (pok) => {
-
-        const { url } = pok
-        const urlFetch = await fetch(url);
-        const dataPorPokemon = await urlFetch.json();
-
-        //return pok
-        return {
-          dataSimple: pok,
-          dataDetalle: dataPorPokemon,
+    const [state, setState] = useState({
+        data: [],
+    })
+    useEffect(() => {
+        if (inputValue.length > 2) {
+            searchApi(inputValue).then(pokemon => {
+                setState({
+                    data: pokemon,
+                })
+            })
+        }
+        else if (inputValue.length === 0){
+          
+            getPokemon().then(pokemon => {
+                setState({
+                    data: pokemon,
+                })
+            })
         }
 
-      })
-
-    )
-    setPokemon(dataPokemon)
-    setReadyForRender(true)
-    // console.log(dataPokemon);
-
-  }
+        
+    }, [inputValue])
 
 
-
-
-  return [pokemon, readyForRender, SearchPokemon,  inputValue];
-  // console.log(pokemon);
+    return state;
 }
