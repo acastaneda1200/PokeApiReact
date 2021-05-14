@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getPokemon, searchApi } from '../helpers/getPokemon'
 
-export const useFetchPokemon = (inputValue) => {
+export const useFetchPokemon = () => {
 
     const [state, setState] = useState({
         data: [],
@@ -11,7 +11,7 @@ export const useFetchPokemon = (inputValue) => {
 
     useEffect(() => {
 
-        getPokemon(inputValue)
+        getPokemon()
             .then(pokemon => {
 
                 setState({
@@ -28,20 +28,24 @@ export const useFetchSearchPokemon = (inputValue) => {
 
     const [state, setState] = useState({
         data: [],
+        loading: true,
     })
     useEffect(() => {
         if (inputValue.length > 2) {
+           
             searchApi(inputValue).then(pokemon => {
                 setState({
                     data: pokemon,
+                    loading: false
                 })
             })
         }
-        else if (inputValue.length === 0){
+        else if (inputValue === ''){
           
             getPokemon().then(pokemon => {
                 setState({
                     data: pokemon,
+                    loading: false
                 })
             })
         }

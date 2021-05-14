@@ -1,7 +1,7 @@
 import { CircularProgress, Container, Grid, makeStyles, Typography } from '@material-ui/core';
 //import Pagination from '@material-ui/lab/Pagination';
-import React, { useContext, useMemo } from 'react'
-import { useFetchPokemon } from '../../hooks/useFetchPokemon';
+import React, { useContext } from 'react'
+import { useFetchPokemon, useFetchSearchPokemon } from '../../hooks/useFetchPokemon';
 import { SearchContext } from '../search/SearchContext';
 import { PokemonItem } from './PokemonItem'
 
@@ -26,11 +26,10 @@ export const GridPokemon = () => {
 
     const classes = useStyles();
 
-    const { data, loading } = useFetchPokemon();
+    const { loading } = useFetchPokemon();
     const { searchPokemon } = useContext(SearchContext)
-   
- 
- 
+
+
     return (
         <>
 
@@ -44,27 +43,24 @@ export const GridPokemon = () => {
                         style={{ marginLeft: '50%' }}
                         color="secondary" />
                 }
-                <div className={classes.root}>
 
+                <div className={classes.root}>
                     <Grid container spacing={5} >
 
                         {
-                           
-                           searchPokemon.map(({ namePokemon, dataDetalle }) => (
-                                    <Grid key={namePokemon} item xs={12} sm={6} md={4}>
-                                        <PokemonItem
-                                            key={namePokemon}
-                                            {...dataDetalle}
 
-                                        />
-                                    </Grid>
 
-                                ))
-                             
+                            searchPokemon.map(({ namePokemon, dataDetalle }, i) => (
+                                <Grid key={namePokemon} item xs={12} sm={6} md={4}>
+                                    <PokemonItem
+                                        {...dataDetalle}
+                                    />
+                                </Grid>
 
-                            // <Typography align='center' variant="h5" component="h4">
-                            //     No se encontraron resultados
-                            //             </Typography>
+                            ))
+
+
+
 
 
 
@@ -75,8 +71,17 @@ export const GridPokemon = () => {
 
                     </Grid>
                 </div>
+               
+
+                    {
+                (searchPokemon.length === 0) &&
+                <Typography style={{margin: '2rem'}} align='center' variant="h5" component="h4">
+                    No se encontraron resultados
+                        </Typography>
+            }
 
             </Container>
+          
         </>
 
     )

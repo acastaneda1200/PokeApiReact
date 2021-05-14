@@ -7,8 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { InputBase, Link } from '@material-ui/core';
-import { PokemonSearch } from '../search/PokemonSearch';
-import { useFetchPokemon, useFetchSearchPokemon } from '../../hooks/useFetchPokemon';
+
+import { useFetchSearchPokemon } from '../../hooks/useFetchPokemon';
 import { SearchContext } from '../search/SearchContext';
 //import SearchPokemon from './SearchPokemon';
 
@@ -87,23 +87,23 @@ export const NavBar = () => {
   const classes = useStyles();
 
   const [inputValue, setInputValue] = useState('')
-  const { setSearchPokemon } = useContext(SearchContext)
+  const { searchPokemon, setSearchPokemon } = useContext(SearchContext)
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   }
 
-
-  
   
   const { data } = useFetchSearchPokemon(inputValue); 
-  setSearchPokemon(data)
+  
+  useEffect(() => {
+    setSearchPokemon(data)
+  }, [data])
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
       setSearchPokemon(data );
-       
-    
 }
 
 
