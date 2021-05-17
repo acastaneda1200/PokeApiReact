@@ -6,7 +6,7 @@ import {
     Redirect,
 
 } from "react-router-dom";
-import { PokemonSearch } from '../components/search/PokemonSearch';
+
 import { NavBar } from '../components/Navbar/NavBar'
 import { SearchContext } from '../components/search/SearchContext';
 import { GridPokemon } from '../components/pokemon/GridPokemon';
@@ -24,7 +24,7 @@ export const AppRouter = () => {
                  <NavBar />
 
                 <Switch>
-                   <Route exact path="/pokemon/:name" component={PokemonSearch}></Route>
+                   {/* <Route exact path="/pokemon/:name"></Route> */}
                    <Route path="/" component={GridPokemon}></Route>
 
                    <Redirect to="/"/>

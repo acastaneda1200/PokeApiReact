@@ -24,7 +24,8 @@ const useStyles = makeStyles({
 });
 
 export const PokemonItem = (dataDetalle) => {
-
+  
+  
 
   const classes = useStyles();
 
@@ -49,7 +50,7 @@ export const PokemonItem = (dataDetalle) => {
     <>
       <Card className={classes.root}>
         <CardActionArea >
-          <CardMedia key={dataDetalle.name}
+          <CardMedia
             className={classes.media}
             image={imagen}
             title={dataDetalle.name}

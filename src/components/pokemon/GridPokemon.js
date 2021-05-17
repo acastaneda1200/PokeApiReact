@@ -52,9 +52,9 @@ export const GridPokemon = () => {
 
             <Container fixed>
 
-                <div className={classes.root}>
+             
                     <Container align='center'>
-                    <Button onClick={nextPage} style={{margin: '1rem'}} variant="contained" color="default">
+                        <Button onClick={nextPage} style={{ margin: '1rem' }} variant="contained" color="default">
                             Atras
                         </Button>
                         <Button onClick={nextPage} variant="contained" color="secondary">
@@ -62,36 +62,43 @@ export const GridPokemon = () => {
                         </Button>
                     </Container>
 
-                    <Grid container spacing={5} >
+                    <div className={classes.root}>
+                        <Grid container spacing={5} >
 
-                        {
-                            data.map(({ namePokemon, dataDetalle }) => (
-                                <Grid key={namePokemon} item xs={12} sm={6} md={4}>
-                                    <PokemonItem
+                            {
+                                data.map(({ namePokemon, dataDetalle }) => (
+                                    <Grid key={namePokemon} item xs={12} sm={6} md={4}>
+                                        <PokemonItem
 
-                                        {...dataDetalle}
+                                            {...dataDetalle}
 
-                                    />
-                                </Grid>
+                                        />
+                                    </Grid>
 
-                            ))
-
-
-                            // <Typography align='center' variant="h5" component="h4">
-                            //     No se encontraron resultados
-                            //             </Typography>
+                                ))
 
 
 
 
 
-                        }
 
 
-                    </Grid>
-                </div>
+                            }
+
+
+                        </Grid>
+                    </div>
+
+
+                    {/* {
+                        (searchPokemon.length === 0) &&
+                        <Typography style={{ margin: '2rem' }} align='center' variant="h5" component="h4">
+                            No se encontraron resultados
+                        </Typography>
+                    } */}
 
             </Container>
+          
         </>
 
     )

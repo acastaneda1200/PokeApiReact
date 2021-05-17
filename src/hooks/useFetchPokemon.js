@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getPokemon, searchApi } from '../helpers/getPokemon'
 
-export const useFetchPokemon = (inputValue) => {
+export const useFetchPokemon = () => {
 
     const [state, setState] = useState({
         data: [],
@@ -11,7 +11,7 @@ export const useFetchPokemon = (inputValue) => {
 
     useEffect(() => {
 
-        getPokemon(inputValue)
+        getPokemon()
             .then(pokemon => {
 
                 setState({
