@@ -24,31 +24,55 @@ export const useFetchPokemon = (inputValue) => {
     return state;
 }
 
-export const useFetchSearchPokemon = (inputValue) => {
+export const useFetchSearchPokemon = (inputValue = '') => {
 
+    const [loading, setLoading] = useState(true)
     const [state, setState] = useState({
         data: [],
+        
     })
+    const [offset, setOffset] = useState(0);
+
+   
+    const nextPage = () => {
+        setLoading(true)
+        setOffset(offset + 20)
+    }
+
+    const previousPage = () => {
+        setLoading(true)
+        setOffset(offset - 20)
+    }
+
     useEffect(() => {
         if (inputValue.length > 2) {
+       
             searchApi(inputValue).then(pokemon => {
+                console.log(pokemon);
                 setState({
                     data: pokemon,
+                  
                 })
             })
         }
-        else if (inputValue.length === 0){
+        else if (inputValue.length === 0) {
+
+            getPokemon(offset).then(pokemon => {
+                setLoading(false)
+                setState({
+                    data: pokemon,
+                    nextPage,
+                    previousPage,
+                    
+                })
+            })
           
-            getPokemon().then(pokemon => {
-                setState({
-                    data: pokemon,
-                })
-            })
+           
         }
 
-        
-    }, [inputValue])
 
+    }, [inputValue, offset])
 
-    return state;
+   
+    return [state, loading];
 }

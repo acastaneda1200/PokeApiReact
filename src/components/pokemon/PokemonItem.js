@@ -47,7 +47,7 @@ export const PokemonItem = (dataDetalle) => {
 
   return (
     <>
-      <Card key={dataDetalle.name} className={classes.root}>
+      <Card className={classes.root}>
         <CardActionArea >
           <CardMedia key={dataDetalle.name}
             className={classes.media}
@@ -58,9 +58,9 @@ export const PokemonItem = (dataDetalle) => {
             <StylesProvider injectFirst>
               <div className="cards_type">
                 {
-                  dataDetalle.types.map(({ type }) => (
+                  dataDetalle.types.map(({ type }, i) => (
 
-                    <Chip align="center" className={`t_${type.name} text-white`} label={type.name} />
+                    <Chip key={i} align="center" className={`t_${type.name} text-white`} label={type.name} />
 
                   ))
                 }

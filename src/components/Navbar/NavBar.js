@@ -96,8 +96,8 @@ export const NavBar = () => {
 
   
   
-  const { data } = useFetchSearchPokemon(inputValue); 
-  setSearchPokemon(data)
+  const [{data}] = useFetchSearchPokemon(inputValue); 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     

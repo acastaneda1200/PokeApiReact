@@ -1,5 +1,7 @@
-export const getPokemon = async () => {
-    const urlFetch = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20`);
+export const getPokemon = async (offset) => {
+  const params = `?offset=${offset}&limit=20` // or:
+
+    const urlFetch = await fetch(`https://pokeapi.co/api/v2/pokemon/${params}`);
     const { results } = await urlFetch.json();
     const dataPokemon = await Promise.all(
       results.map(async (pok) => {

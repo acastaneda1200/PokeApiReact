@@ -1,7 +1,7 @@
-import { CircularProgress, Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Button, CircularProgress, Container, Grid, makeStyles, Typography } from '@material-ui/core';
 //import Pagination from '@material-ui/lab/Pagination';
 import React, { useContext, useMemo } from 'react'
-import { useFetchPokemon } from '../../hooks/useFetchPokemon';
+import { useFetchPokemon, useFetchSearchPokemon } from '../../hooks/useFetchPokemon';
 import { SearchContext } from '../search/SearchContext';
 import { PokemonItem } from './PokemonItem'
 
@@ -26,41 +26,56 @@ export const GridPokemon = () => {
 
     const classes = useStyles();
 
-    const { data, loading } = useFetchPokemon();
+    // const [ state, loading, nextPage, previousPage ] = useFetchSearchPokemon();
+    const [pokemones, loading] = useFetchSearchPokemon();
     const { searchPokemon } = useContext(SearchContext)
-   
- 
- 
+    const { data, nextPage, previousPage } = pokemones;
+    //console.log(searchPokemon);
+
+    if (loading) {
+        return (
+            loading &&
+            <CircularProgress size={100}
+                left={-20}
+                top={10}
+
+                style={{ marginLeft: '50%' }}
+                color="secondary" />
+
+
+        )
+    }
+
+
     return (
         <>
 
             <Container fixed>
-                {
-                    loading &&
-                    <CircularProgress size={100}
-                        left={-20}
-                        top={10}
 
-                        style={{ marginLeft: '50%' }}
-                        color="secondary" />
-                }
                 <div className={classes.root}>
+                    <Container align='center'>
+                    <Button onClick={nextPage} style={{margin: '1rem'}} variant="contained" color="default">
+                            Atras
+                        </Button>
+                        <Button onClick={nextPage} variant="contained" color="secondary">
+                            Siguiente
+                        </Button>
+                    </Container>
 
                     <Grid container spacing={5} >
 
                         {
-                           
-                           searchPokemon.map(({ namePokemon, dataDetalle }) => (
-                                    <Grid key={namePokemon} item xs={12} sm={6} md={4}>
-                                        <PokemonItem
-                                            key={namePokemon}
-                                            {...dataDetalle}
+                            data.map(({ namePokemon, dataDetalle }) => (
+                                <Grid key={namePokemon} item xs={12} sm={6} md={4}>
+                                    <PokemonItem
 
-                                        />
-                                    </Grid>
+                                        {...dataDetalle}
 
-                                ))
-                             
+                                    />
+                                </Grid>
+
+                            ))
+
 
                             // <Typography align='center' variant="h5" component="h4">
                             //     No se encontraron resultados
