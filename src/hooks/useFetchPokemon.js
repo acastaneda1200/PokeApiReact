@@ -29,11 +29,10 @@ export const useFetchSearchPokemon = (inputValue = '') => {
     const [loading, setLoading] = useState(true)
     const [state, setState] = useState({
         data: [],
-        
+
     })
     const [offset, setOffset] = useState(0);
 
-   
     const nextPage = () => {
         setLoading(true)
         setOffset(offset + 20)
@@ -41,21 +40,27 @@ export const useFetchSearchPokemon = (inputValue = '') => {
 
     const previousPage = () => {
         setLoading(true)
+
         setOffset(offset - 20)
+
+
     }
 
     useEffect(() => {
         if (inputValue.length > 2) {
-       
+
             searchApi(inputValue).then(pokemon => {
-                console.log(pokemon);
+                setLoading(false)
                 setState({
                     data: pokemon,
-                  
                 })
             })
         }
-        else if (inputValue.length === 0) {
+    }, [inputValue])
+
+    useEffect(() => {
+
+        if (inputValue.length === 0) {
 
             getPokemon(offset).then(pokemon => {
                 setLoading(false)
@@ -63,16 +68,15 @@ export const useFetchSearchPokemon = (inputValue = '') => {
                     data: pokemon,
                     nextPage,
                     previousPage,
-                    
+                    offset
+
                 })
             })
-          
-           
         }
 
 
     }, [inputValue, offset])
 
-   
+
     return [state, loading];
 }

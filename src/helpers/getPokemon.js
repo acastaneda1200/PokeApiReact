@@ -1,28 +1,20 @@
 export const getPokemon = async (offset) => {
   const params = `?offset=${offset}&limit=20` // or:
-
     const urlFetch = await fetch(`https://pokeapi.co/api/v2/pokemon/${params}`);
     const { results } = await urlFetch.json();
     const dataPokemon = await Promise.all(
       results.map(async (pok) => {
-        
         const { url } = pok
         const urlFetch = await fetch(url);
         const dataPorPokemon = await urlFetch.json();
-
         //return pok
         return {
           namePokemon: pok.name,
           dataDetalle: dataPorPokemon,
         }
-
       })
-
     )
-  
- 
-    return dataPokemon;
-
+     return dataPokemon;
   }
 
   export const searchApi = async (inputValue) => {

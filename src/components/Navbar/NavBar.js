@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,10 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { InputBase, Link } from '@material-ui/core';
-
 import { useFetchSearchPokemon } from '../../hooks/useFetchPokemon';
 import { SearchContext } from '../search/SearchContext';
-//import SearchPokemon from './SearchPokemon';
+
 
 
 
@@ -87,19 +86,23 @@ export const NavBar = () => {
   const classes = useStyles();
 
   const [inputValue, setInputValue] = useState('')
-  const { searchPokemon, setSearchPokemon } = useContext(SearchContext)
+  const { setSearchPokemon } = useContext(SearchContext)
 
   const handleInputChange = (e) => {
+    e.preventDefault();
     setInputValue(e.target.value);
   }
 
-  
+
   const [{data}] = useFetchSearchPokemon(inputValue); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      setSearchPokemon(data );
-}
+
+    setSearchPokemon(data)
+     //inputValue.length > 2 ? setSearchPokemon(data ) : setSearchPokemon('')
+
+  }
 
 
   return (
@@ -127,17 +130,17 @@ export const NavBar = () => {
               <SearchIcon />
             </div>
             <form onSubmit={handleSubmit}>
-            <InputBase
-              placeholder="Buscar Pokemon"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={handleInputChange}
-              value={inputValue}
-
-            />
+              <InputBase
+                placeholder="Buscar Pokemon"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={handleInputChange}
+                value={inputValue}
+                name="pokemon"
+              />
             </form>
           </div>
           <div className={classes.grow} />
