@@ -3,8 +3,10 @@ import { Button, CircularProgress, Container, Grid, makeStyles } from '@material
 import React, { useContext } from 'react'
 import { useFetchSearchPokemon } from '../../hooks/useFetchPokemon';
 import { SearchContext } from '../search/SearchContext';
+import { ValueContext } from '../search/ValueContext';
 import { PokemonItem } from './PokemonItem'
 import { SearchPokemonResult } from '../search/SearchPokemonResult'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
 export const GridPokemon = () => {
 
     const classes = useStyles();
-
     // const [ state, loading, nextPage, previousPage ] = useFetchSearchPokemon();
     const [pokemones, loading] = useFetchSearchPokemon();
     const { searchPokemon } = useContext(SearchContext)
+    const { valueState } = useContext(ValueContext)
     const { data, nextPage, previousPage, offset } = pokemones;
     
     if (loading) {
@@ -38,17 +40,13 @@ export const GridPokemon = () => {
             <CircularProgress size={100}
                 left={-20}
                 top={10}
-
                 style={{ marginLeft: '50%' }}
                 color="secondary" />
-
-
         )
     }
-    
-     if (searchPokemon.length > 0 ) {
+   
+     if (searchPokemon.length > 0 || valueState.length > 0 ) {
          return (
-
              <SearchPokemonResult />
          )
      }
@@ -63,6 +61,7 @@ export const GridPokemon = () => {
                     <Button onClick={nextPage} variant="contained" color="secondary">
                         Siguiente
                         </Button>
+                        
                 </Container>
 
                 <div className={classes.root}>
@@ -71,24 +70,13 @@ export const GridPokemon = () => {
                             data.map(({ namePokemon, dataDetalle }) => (
                                 <Grid key={namePokemon} item xs={12} sm={6} md={4}>
                                     <PokemonItem
-
                                         {...dataDetalle}
-
                                     />
                                 </Grid>
                             ))
                         }
                     </Grid>
                 </div>
-
-
-                {/* {
-                        (searchPokemon.length === 0) &&
-                        <Typography style={{ margin: '2rem' }} align='center' variant="h5" component="h4">
-                            No se encontraron resultados
-                        </Typography>
-                    } */}
-
             </Container>
 
         </>

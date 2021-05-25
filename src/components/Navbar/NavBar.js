@@ -9,6 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { InputBase, Link } from '@material-ui/core';
 import { useFetchSearchPokemon } from '../../hooks/useFetchPokemon';
 import { SearchContext } from '../search/SearchContext';
+import { ValueContext } from '../search/ValueContext';
 
 
 
@@ -87,6 +88,7 @@ export const NavBar = () => {
 
   const [inputValue, setInputValue] = useState('')
   const { setSearchPokemon } = useContext(SearchContext)
+  const { setValueState } = useContext(ValueContext)
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -94,14 +96,14 @@ export const NavBar = () => {
   }
 
 
-  const [{data}] = useFetchSearchPokemon(inputValue); 
+  const [{ data }] = useFetchSearchPokemon(inputValue);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setSearchPokemon(data)
-     //inputValue.length > 2 ? setSearchPokemon(data ) : setSearchPokemon('')
-
+    inputValue.length === 0 ? setSearchPokemon([]) : setSearchPokemon(data)
+    
+    setValueState(inputValue)
   }
 
 

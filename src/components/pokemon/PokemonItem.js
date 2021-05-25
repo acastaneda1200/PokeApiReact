@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 });
 
 export const PokemonItem = (dataDetalle) => {
-
+  
   const classes = useStyles();
   const imagen = dataDetalle.sprites.other["official-artwork"].front_default
 

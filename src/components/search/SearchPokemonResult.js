@@ -27,8 +27,8 @@ export const SearchPokemonResult = () => {
 
     // const [ state, loading, nextPage, previousPage ] = useFetchSearchPokemon();
     const [ , loading] = useFetchSearchPokemon();
-    const { searchPokemon } = useContext(SearchContext)
-    
+    const  { searchPokemon } = useContext(SearchContext)
+        console.log(searchPokemon);
 
     if (loading) {
         return (
