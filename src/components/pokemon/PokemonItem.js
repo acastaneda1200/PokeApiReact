@@ -1,7 +1,7 @@
 
 import { Card, CardActionArea, CardContent, CardMedia, Chip, makeStyles, StylesProvider, Typography } from '@material-ui/core';
 import './chipStyle.css'
-import React from 'react'
+import React, { useState } from 'react'
 import ContentLoader from "react-content-loader"
 
 
@@ -26,19 +26,17 @@ const useStyles = makeStyles({
 });
 
 export const PokemonItem = (dataDetalle) => {
-  
+  const history = dataDetalle.history
+
   const classes = useStyles();
   const imagen = dataDetalle.sprites.other["official-artwork"].front_default
-
-  /* let habilidad = dataDetalle.abilities[0].ability.name;
-  let habilidadHidden = dataDetalle.abilities[1].ability.name; */
   let HP = dataDetalle.stats[0].base_stat;
   let attack = dataDetalle.stats[1].base_stat;
   let defense = dataDetalle.stats[2].base_stat;
   let special_attack = dataDetalle.stats[3].base_stat;
   let special_defense = dataDetalle.stats[4].base_stat;
   let speed = dataDetalle.stats[5].base_stat;
-  
+
   const LoaderComponent = () => {
     return (
       <ContentLoader
@@ -54,21 +52,48 @@ export const PokemonItem = (dataDetalle) => {
     )
   }
 
+  const goToDeTailPokemon = () => {
+    history.push(`pokemon/${dataDetalle.name}`)
+  }
+
+
+
+  const [loadingImg, setLoadingImg] = useState(false)
+
+  const imageLoaded = () => {
+
+
+    console.log('test');
+    setLoadingImg(true);
+
+  }
+
+
+
   return (
     <>
-      <Card className={classes.root}>
+      <Card onClick={goToDeTailPokemon} className={classes.root}>
         <CardActionArea >
+          {imagen ? (
+            <CardMedia
+            className={classes.media}
+            image={imagen}
+            title={dataDetalle.name}
+            alt={dataDetalle.name}
+
+          />
+
+          ) : 
+
+            ( <LoaderComponent /> )
+        
+        }
           
-            
-              <CardMedia
-                className={classes.media}
-                image={imagen}
-                title={dataDetalle.name}
-               
-              />
-          
-              {/* <LoaderComponent /> */}
-          
+
+
+
+        
+
           <CardContent >
             <StylesProvider injectFirst>
               <div className="cards_type">
@@ -114,6 +139,7 @@ export const PokemonItem = (dataDetalle) => {
                     <td>{speed}</td>
                   </tr>
                 </tbody></table>
+
             </div>
 
           </CardContent>

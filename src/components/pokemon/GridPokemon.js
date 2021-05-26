@@ -25,15 +25,14 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }));
-export const GridPokemon = () => {
+export const GridPokemon = ({history}) => {
 
     const classes = useStyles();
-    // const [ state, loading, nextPage, previousPage ] = useFetchSearchPokemon();
     const [pokemones, loading] = useFetchSearchPokemon();
     const { searchPokemon } = useContext(SearchContext)
     const { valueState } = useContext(ValueContext)
     const { data, nextPage, previousPage, offset } = pokemones;
-    
+
     if (loading) {
         return (
             loading &&
@@ -69,7 +68,7 @@ export const GridPokemon = () => {
                         {
                             data.map(({ namePokemon, dataDetalle }) => (
                                 <Grid key={namePokemon} item xs={12} sm={6} md={4}>
-                                    <PokemonItem
+                                    <PokemonItem history={history} 
                                         {...dataDetalle}
                                     />
                                 </Grid>

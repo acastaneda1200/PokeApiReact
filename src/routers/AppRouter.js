@@ -11,6 +11,7 @@ import { NavBar } from '../components/Navbar/NavBar'
 import { SearchContext } from '../components/search/SearchContext';
 import { ValueContext } from '../components/search/ValueContext';
 import { GridPokemon } from '../components/pokemon/GridPokemon';
+import { PokemonDetail } from '../components/pokemon/PokemonDetail';
 
 
 
@@ -27,7 +28,7 @@ export const AppRouter = () => {
                  <NavBar />
 
                 <Switch>
-                   {/* <Route exact path="/pokemon/:name"></Route> */}
+                   <Route exact path="/pokemon/:name" component={PokemonDetail}></Route>
                    <Route path="/" component={GridPokemon}></Route>
 
                    <Redirect to="/"/>

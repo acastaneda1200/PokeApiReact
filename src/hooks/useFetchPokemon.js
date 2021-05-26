@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getPokemon, searchApi } from '../helpers/getPokemon'
+import { getPokemonByName } from '../helpers/getPokemonByName'
 
-export const useFetchPokemon = () => {
+export const useFetchPokemonByName = (name) => {
 
     const [state, setState] = useState({
         data: [],
@@ -11,18 +12,20 @@ export const useFetchPokemon = () => {
 
     useEffect(() => {
 
-        getPokemon()
+        getPokemonByName(name)
             .then(pokemon => {
-
+                
                 setState({
+                    loading: false,
                     data: pokemon,
-                    loading: false
                 })
             })
-    }, [])
-
+    }, [name])
+   
     return state;
 }
+
+
 
 export const useFetchSearchPokemon = (inputValue = '') => {
 
@@ -33,18 +36,15 @@ export const useFetchSearchPokemon = (inputValue = '') => {
     })
     const [offset, setOffset] = useState(0);
 
-    const nextPage = () => {
+    const previousPage = useCallback(() => {
+        setLoading(true)
+        setOffset(offset - 20)
+      }, [offset])
+
+      const nextPage = useCallback(() => {
         setLoading(true)
         setOffset(offset + 20)
-    }
-
-    const previousPage = () => {
-        setLoading(true)
-
-        setOffset(offset - 20)
-
-
-    }
+      }, [offset])
 
     useEffect(() => {
         if (inputValue.length > 2) {
@@ -75,7 +75,7 @@ export const useFetchSearchPokemon = (inputValue = '') => {
         }
 
 
-    }, [inputValue, offset])
+    }, [inputValue, offset, nextPage, previousPage])
 
 
     return [state, loading];
